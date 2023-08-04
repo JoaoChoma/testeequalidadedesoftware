@@ -4,5 +4,11 @@ Repositório para códigos da disciplina e conteúdos da displina de Teste e Qua
 
 # ENTREGAS
 
-# ESOFT4S-N-B
+ESOFT4S-N-A
+https://forms.gle/YNpQaFZAQXfM6cPa7
+
+ESOFT4S-N-B
 https://forms.gle/38Bf9j2fgLzqskky5
+
+ESOFT4S-N-C
+https://forms.gle/NczXFwYvc313sFnA8
