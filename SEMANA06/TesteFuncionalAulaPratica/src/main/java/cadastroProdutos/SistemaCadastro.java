@@ -19,20 +19,23 @@ public class SistemaCadastro {
         }
     }
 
-    public void listarProdutos() {
-        System.out.println("Lista de Produtos:");
+    public String listarProdutos() {
+        String saida = "Lista de Produtos:\n";
+
         for (Produto produto : produtos) {
-            System.out.println(produto);
+            saida += produto.toString()+"\n";
         }
+        return saida;
     }
 
-    public void buscarProduto(String termo) {
-        System.out.println("Resultados da busca por '" + termo + "':");
+    public String buscarProduto(String termo) {
+        String saida = "Resultados da busca por '" + termo + "':\n";
         for (Produto produto : produtos) {
             if (produto.getNome().toLowerCase().contains(termo.toLowerCase())) {
-                System.out.println(produto);
+                saida += produto.toString()+"\n";
             }
         }
+        return saida;
     }
 
 }
