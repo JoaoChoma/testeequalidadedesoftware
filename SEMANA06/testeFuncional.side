@@ -1,0 +1,125 @@
+{
+  "id": "35a22fe2-408b-457d-8b42-0b63e797830f",
+  "version": "2.0",
+  "name": "testeFuncional",
+  "url": "https://google.com/",
+  "tests": [{
+    "id": "7c5bf39a-157e-4d8d-b48e-ce8183f88d50",
+    "name": "google",
+    "commands": [{
+      "id": "c8337649-28f6-4809-88cf-91e2d7ce71b7",
+      "comment": "",
+      "command": "open",
+      "target": "https://www.google.com/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9c381e39-945b-4a69-85af-5d7d60943821",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1440x900",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f985fe49-63a4-47ab-bca8-31773c427473",
+      "comment": "",
+      "command": "click",
+      "target": "id=APjFqb",
+      "targets": [
+        ["id=APjFqb", "id"],
+        ["name=q", "name"],
+        ["css=#APjFqb", "css:finder"],
+        ["xpath=//textarea[@id='APjFqb']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "53ac18ea-63ae-4f37-a2bf-5cf2e132417c",
+      "comment": "",
+      "command": "type",
+      "target": "id=APjFqb",
+      "targets": [
+        ["id=APjFqb", "id"],
+        ["name=q", "name"],
+        ["css=#APjFqb", "css:finder"],
+        ["xpath=//textarea[@id='APjFqb']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "selenium ide"
+    }]
+  }, {
+    "id": "08f019bf-03ef-49e2-9ca7-175b0149c03e",
+    "name": "g2",
+    "commands": [{
+      "id": "916d7b69-cd2d-4c0b-882d-109a6c446d25",
+      "comment": "",
+      "command": "open",
+      "target": "https://www.google.com/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "47d5b9da-6758-4f60-82ac-6d086b0afe5a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "550x691",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "880cf957-6316-4ff0-832b-779a529f7018",
+      "comment": "",
+      "command": "type",
+      "target": "id=APjFqb",
+      "targets": [
+        ["id=APjFqb", "id"],
+        ["name=q", "name"],
+        ["css=#APjFqb", "css:finder"],
+        ["xpath=//textarea[@id='APjFqb']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "selenium webdriver"
+    }, {
+      "id": "8f896412-3410-49e8-b937-76f4c62a2029",
+      "comment": "",
+      "command": "click",
+      "target": "css=.g:nth-child(4) .LC20lb",
+      "targets": [
+        ["css=.g:nth-child(4) .LC20lb", "css:finder"],
+        ["xpath=//div[@id='rso']/div/div/div/div/div/div/div/a/h3", "xpath:idRelative"],
+        ["xpath=//h3", "xpath:position"],
+        ["xpath=//h3[contains(.,'WebDriver - Selenium')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ff4f501c-bb32-4cb3-b249-0f2ea8cd2ea0",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,208)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ad9c6720-9051-4521-9f4d-4eb288ef8e09",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Getting started",
+      "targets": [
+        ["linkText=Getting started", "linkText"],
+        ["css=.entry:nth-child(2) a", "css:finder"],
+        ["xpath=//a[contains(text(),'Getting started')]", "xpath:link"],
+        ["xpath=(//a[contains(@href, '/documentation/webdriver/getting_started/')])[5]", "xpath:href"],
+        ["xpath=//h5/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Getting started')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "0cdf7272-d33e-42f6-88ed-b592e6defb60",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["https://google.com/"],
+  "plugins": []
+}
