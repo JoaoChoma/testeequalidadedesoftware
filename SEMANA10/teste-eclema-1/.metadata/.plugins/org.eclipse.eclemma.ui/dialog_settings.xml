@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="SessionExportWizard">
+		<item key="SessionExportPage1.format" value="HTML"/>
+		<list key="SessionExportPage1.destinations">
+			<item value="/Users/joaochoma/teste-eclema-1"/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,20 @@
+INDEX VERSION 1.134+/Users/joaochoma/teste-eclema-1/.metadata/.plugins/org.eclipse.jdt.core
+4163653965.index
+2380731552.index
+4206395038.index
+3463710017.index
+4251464974.index
+1865797976.index
+798437111.index
+3105172556.index
+1499088394.index
+612145150.index
+738444884.index
+1234979535.index
+1153177602.index
+1678026109.index
+3627090612.index
+1483083089.index
+3935637214.index
+214257391.index
+4103229977.index
