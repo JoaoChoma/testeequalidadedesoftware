@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Campo.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">campominado (24 de out. de 2023 17:26:18)</a> &gt; <a href="../../index.html" class="el_group">campominado</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">br.com.cod3r.cm.modelo</a> &gt; <span class="el_source">Campo.java</span></div><h1>Campo.java</h1><pre class="source lang-java linenums">package br.com.cod3r.cm.modelo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Campo {
+	
+	private final int linha;
+	private final int coluna;
+	
+<span class="nc" id="L11">	private boolean aberto = false;</span>
+<span class="nc" id="L12">	private boolean minado = false;</span>
+<span class="nc" id="L13">	private boolean marcado = false;</span>
+	
+<span class="nc" id="L15">	private List&lt;Campo&gt; vizinhos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L16">	private List&lt;CampoObservador&gt; observadores = new ArrayList&lt;&gt;();</span>
+	 
+<span class="nc" id="L18">	Campo(int linha, int coluna) {</span>
+<span class="nc" id="L19">		this.linha = linha;</span>
+<span class="nc" id="L20">		this.coluna = coluna;</span>
+<span class="nc" id="L21">	}</span>
+	
+	public void registrarObservador(CampoObservador observador) {
+<span class="nc" id="L24">		observadores.add(observador);</span>
+<span class="nc" id="L25">	}</span>
+	
+	private void notificarObservadores(CampoEvento evento) {
+<span class="nc" id="L28">		observadores.stream()</span>
+<span class="nc" id="L29">			.forEach(o -&gt; o.eventoOcorreu(this, evento));</span>
+<span class="nc" id="L30">	}</span>
+	
+	public boolean isMarcado() {
+<span class="nc" id="L33">		return marcado;</span>
+	}
+	
+	public boolean isDesmarcado() {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">		return !isMarcado();</span>
+	}
+	
+	void setAberto(boolean aberto) {
+<span class="nc" id="L41">		this.aberto = aberto;</span>
+		
+<span class="nc bnc" id="L43" title="All 2 branches missed.">		if(aberto) {</span>
+<span class="nc" id="L44">			notificarObservadores(CampoEvento.ABRIR);</span>
+		}
+<span class="nc" id="L46">	}</span>
+	
+	public boolean isAberto() {
+<span class="nc" id="L49">		return aberto;</span>
+	}
+	
+	public boolean isFechado() {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">		return !isAberto();</span>
+	}
+	
+	public boolean isMinado() {
+<span class="nc" id="L57">		return minado;</span>
+	}
+	
+	public boolean isSemMina() {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">		return !isMinado();</span>
+	}
+	
+	public int getLinha() {
+<span class="nc" id="L65">		return linha;</span>
+	}
+	
+	public int getColuna() {
+<span class="nc" id="L69">		return coluna;</span>
+	}
+	
+	//M�todo para mostrar os vizinhos que n�o tem bomba em volta do campo que foi selecionado.
+	boolean adicionarVizinho(Campo vizinho) {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">		boolean linhaDiferente = linha != vizinho.linha;</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">		boolean colunaDiferente = linha != vizinho.coluna;</span>
+<span class="nc bnc" id="L76" title="All 4 branches missed.">		boolean diagonal = linhaDiferente &amp;&amp; colunaDiferente;</span>
+		
+<span class="nc" id="L78">		int deltaLinha = Math.abs(linha - vizinho.linha);</span>
+<span class="nc" id="L79">		int deltaColuna = Math.abs(coluna - vizinho.coluna);</span>
+<span class="nc" id="L80">		int deltaGeral = deltaColuna + deltaLinha;</span>
+		
+<span class="nc bnc" id="L82" title="All 4 branches missed.">		if(deltaGeral == 1 &amp;&amp; !diagonal) {</span>
+<span class="nc" id="L83">			vizinhos.add(vizinho);	</span>
+<span class="nc" id="L84">			return true;</span>
+<span class="nc bnc" id="L85" title="All 4 branches missed.">		}else if (deltaGeral == 2 &amp;&amp; diagonal) {</span>
+<span class="nc" id="L86">			vizinhos.add(vizinho);</span>
+<span class="nc" id="L87">			return true;</span>
+		}else {
+<span class="nc" id="L89">			return false;</span>
+		}
+	}	
+		
+	//Marcar &amp; Desmarcar determinado campo.
+	public void alternarMarcacao() {
+<span class="nc bnc" id="L95" title="All 2 branches missed.">		if (!aberto) {</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">			marcado = !marcado;</span>
+			
+<span class="nc bnc" id="L98" title="All 2 branches missed.">			if(marcado) {</span>
+<span class="nc" id="L99">				notificarObservadores(CampoEvento.MARCAR);</span>
+<span class="nc" id="L100">			}else {</span>
+<span class="nc" id="L101">				notificarObservadores(CampoEvento.DESMARCAR);</span>
+			}	
+		}
+<span class="nc" id="L104">	}</span>
+	
+	/*
+	 * Se campo n�o estiver aberto e marcado, o campo ent�o � aberto. 
+	 * Se estiver minado o Jogo � encerrado. 
+	 * Se a vizinha�a do campo for segura, isso � n�o tem minas nos campos pr�ximos, 
+	 * ent�o esses campos s�o abertos.
+	 */
+	public boolean abrir() {
+<span class="nc bnc" id="L113" title="All 4 branches missed.">		if(!aberto &amp;&amp; !marcado) {</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">			if(minado) {</span>
+<span class="nc" id="L115">				notificarObservadores(CampoEvento.EXPLODIR);</span>
+<span class="nc" id="L116">				return true;</span>
+			}
+			
+<span class="nc" id="L119">			setAberto(true);</span>
+<span class="nc" id="L120">			notificarObservadores(CampoEvento.ABRIR);</span>
+			
+<span class="nc bnc" id="L122" title="All 2 branches missed.">			if(vizinhancaSegura()) {</span>
+<span class="nc" id="L123">				vizinhos.forEach(v -&gt; v.abrir());</span>
+			}
+			
+<span class="nc" id="L126">			return true;</span>
+			
+<span class="nc" id="L128">		}else return false;</span>
+	}
+	
+	//Verificar se os campos vizinhos s�o seguros para se abrir.
+	public boolean vizinhancaSegura() {
+<span class="nc" id="L133">		return vizinhos.stream().noneMatch(v -&gt; v.minado);</span>
+	}
+	
+	//Minar campo passado.
+	void minar() {
+<span class="nc" id="L138">		minado = true;</span>
+<span class="nc" id="L139">	}</span>
+	
+	//Verificar se determinado campo foi Desvendado ou est� protegido.
+	boolean objetivoAlcancado() {
+<span class="nc bnc" id="L143" title="All 4 branches missed.">		boolean desvendado = !minado &amp;&amp; aberto;</span>
+<span class="nc bnc" id="L144" title="All 4 branches missed.">		boolean protegido = minado &amp;&amp; marcado;</span>
+<span class="nc bnc" id="L145" title="All 4 branches missed.">		return desvendado || protegido;</span>
+	}
+	
+	//Contas quantas minas tem em volta da jogada feita.
+	public int minasNaVizinhanca() {
+<span class="nc" id="L150">		return (int)vizinhos.stream().filter(v -&gt; v.minado).count();</span>
+	}
+	
+	//Reiniciar campos do jogo.
+	void reiniciar() {
+<span class="nc" id="L155">		aberto = false;</span>
+<span class="nc" id="L156">		minado = false;</span>
+<span class="nc" id="L157">		marcado = false;</span>
+<span class="nc" id="L158">		notificarObservadores(CampoEvento.REINICIAR);</span>
+<span class="nc" id="L159">	}</span>
+	
+
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>campominado (24 de out. de 2023 17:26:18)</div></body></html>

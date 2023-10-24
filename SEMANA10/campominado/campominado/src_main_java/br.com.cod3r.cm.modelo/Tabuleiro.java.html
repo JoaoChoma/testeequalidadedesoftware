@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Tabuleiro.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">campominado (24 de out. de 2023 17:26:18)</a> &gt; <a href="../../index.html" class="el_group">campominado</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">br.com.cod3r.cm.modelo</a> &gt; <span class="el_source">Tabuleiro.java</span></div><h1>Tabuleiro.java</h1><pre class="source lang-java linenums">package br.com.cod3r.cm.modelo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
+public class Tabuleiro implements CampoObservador {
+
+	private final int linhas;
+	private final int colunas;
+	private final int minas;
+
+<span class="nc" id="L14">	private final List&lt;Campo&gt; campos = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L15">	private final List&lt;Consumer&lt;ResultadoEvento&gt;&gt; observadores = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L17">	public Tabuleiro(int linhas, int colunas, int minas) {</span>
+<span class="nc" id="L18">		this.linhas = linhas;</span>
+<span class="nc" id="L19">		this.colunas = colunas;</span>
+<span class="nc" id="L20">		this.minas = minas;</span>
+
+<span class="nc" id="L22">		gerarCampos();</span>
+<span class="nc" id="L23">		associarVizinhos();</span>
+<span class="nc" id="L24">		sortearMinas();</span>
+<span class="nc" id="L25">	}</span>
+	
+	public void paraCadaCampo(Consumer&lt;Campo&gt; funcao) {
+<span class="nc" id="L28">		campos.forEach(funcao);</span>
+<span class="nc" id="L29">	}</span>
+
+	public void registrarObservador(Consumer&lt;ResultadoEvento&gt; observador) {
+<span class="nc" id="L32">		observadores.add(observador);</span>
+<span class="nc" id="L33">	}</span>
+
+	private void notificarObservadores(boolean resultado) {
+<span class="nc" id="L36">		observadores.stream().forEach(o -&gt; o.accept(new ResultadoEvento(resultado)));</span>
+<span class="nc" id="L37">	}</span>
+
+	public void abrir(int linha, int coluna) {
+<span class="nc bnc" id="L40" title="All 4 branches missed.">		campos.parallelStream().filter(c -&gt; c.getLinha() == linha &amp;&amp; c.getColuna() == coluna).findFirst()</span>
+<span class="nc" id="L41">				.ifPresent(c -&gt; c.abrir());</span>
+<span class="nc" id="L42">	}</span>
+
+	public void alternarMarcacao(int linha, int coluna) {
+<span class="nc bnc" id="L45" title="All 4 branches missed.">		campos.parallelStream().filter(c -&gt; c.getLinha() == linha &amp;&amp; c.getColuna() == coluna).findFirst()</span>
+<span class="nc" id="L46">				.ifPresent(c -&gt; c.alternarMarcacao());</span>
+<span class="nc" id="L47">	}</span>
+
+	private void gerarCampos() {
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		for (int linha = 0; linha &lt; linhas; linha++) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">			for (int coluna = 0; coluna &lt; colunas; coluna++) {</span>
+<span class="nc" id="L52">				Campo campo = new Campo(linha, coluna);</span>
+<span class="nc" id="L53">				campo.registrarObservador(this);</span>
+<span class="nc" id="L54">				campos.add(campo);</span>
+			}
+		}
+<span class="nc" id="L57">	}</span>
+
+	private void associarVizinhos() {
+<span class="nc bnc" id="L60" title="All 2 branches missed.">		for (Campo c1 : campos) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">			for (Campo c2 : campos) {</span>
+<span class="nc" id="L62">				c1.adicionarVizinho(c2);</span>
+			}
+		}
+<span class="nc" id="L65">	}</span>
+
+	private void sortearMinas() {
+<span class="nc" id="L68">		long minasArmadas = 0;</span>
+<span class="nc" id="L69">		Predicate&lt;Campo&gt; minado = c -&gt; c.isMinado();</span>
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">		do {</span>
+<span class="nc" id="L72">			int aleatorio = (int) (Math.random() * campos.size());</span>
+<span class="nc" id="L73">			campos.get(aleatorio).minar();</span>
+<span class="nc" id="L74">			minasArmadas = campos.stream().filter(minado).count();</span>
+<span class="nc" id="L75">		} while (minasArmadas &lt; minas);</span>
+<span class="nc" id="L76">	}</span>
+
+	public boolean objetivoAlcancado() {
+<span class="nc" id="L79">		return campos.stream().allMatch(c -&gt; c.objetivoAlcancado());</span>
+	}
+
+	public void reiniciar() {
+<span class="nc" id="L83">		campos.stream().forEach(c -&gt; c.reiniciar());</span>
+<span class="nc" id="L84">		sortearMinas();</span>
+<span class="nc" id="L85">	}</span>
+
+	public int getLinhas() {
+<span class="nc" id="L88">		return linhas;</span>
+	}
+
+	public int getColunas() {
+<span class="nc" id="L92">		return colunas;</span>
+	}
+
+	@Override
+	public void eventoOcorreu(Campo campo, CampoEvento evento) {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">		if (evento == CampoEvento.EXPLODIR) {</span>
+<span class="nc" id="L98">			mostrarMinas();</span>
+<span class="nc" id="L99">			notificarObservadores(false);</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">		} else if (objetivoAlcancado()) {</span>
+<span class="nc" id="L101">			notificarObservadores(true);</span>
+		}
+<span class="nc" id="L103">	}</span>
+
+	private void mostrarMinas() {
+<span class="nc" id="L106">		campos.stream()</span>
+<span class="nc" id="L107">			.filter(c -&gt; c.isMinado())</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">			.filter(c -&gt; !c.isMarcado())</span>
+<span class="nc" id="L109">			.forEach(c -&gt; c.setAberto(true));</span>
+<span class="nc" id="L110">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>campominado (24 de out. de 2023 17:26:18)</div></body></html>
