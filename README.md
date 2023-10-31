@@ -2,6 +2,12 @@
 
 Repositório para códigos da disciplina e conteúdos da displina de Teste e Qualidade de Software 2023/2
 
+# Teste Estrutural - Fluxo de dados
+
+https://saeg.github.io/baduino/
+
+https://github.com/saeg/baduino
+
 # ENTREGAS
 
 ESOFT4S-N-A
